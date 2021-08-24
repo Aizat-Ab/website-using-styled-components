@@ -2,25 +2,53 @@ import React from 'react';
 import styled from 'styled-components';
 import how from '../img/how1.png';
 import MiniCart from './MiniCart';
+import play from '../img/play.png';
 
 const Container = styled.div`
     display: flex;
+    height:100%;
+    @media only screen and (max-width:480px){
+        flex-direction: column;
+    }
 `
 const Left = styled.div`
     width: 50%;
+    position: relative;
+    @media only screen and (max-width:480px){
+        display: none;
+    }
 `
 const Right = styled.div`
     width: 50%;
-    
+    @media only screen and (max-width:480px){
+        width: 100%;
+    }
 `
 const Img = styled.img`
-    height: 60%;
-    margin-left: -240px;
+    display: ${(props) => props.open && 'none'};
+    height: 100%;
+    margin-left: -97px;
+`
+const Video = styled.video`
+    display: ${(props) => !props.open && 'none'};
+    height: 300px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    @media only screen and (max-width:480px){
+        width: 100%;
+    }
 `
 const Wrapper = styled.div`
     padding: 50px;
     display: flex;
     flex-direction: column;
+    @media only screen and (max-width:480px){
+        padding: 20px;
+        width: 100%;
+    }
 `
 const Title = styled.h2`
     font-size: 46px;
@@ -45,12 +73,41 @@ const Button = styled.button`
     margin-top: 50px;
     cursor: pointer;
     padding: 15px;
+    display: flex;
+    align-items: center;
 `
+const Icon = styled.img`
+    width: 20px:
+    margin: 10px;
+    margin-right: 8px;
+`
+const Modal = styled.div`
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5)
+`
+const CloseButton = styled.button`
+    position: absolute;
+    background: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    right: 5px;
+    top: 25%;
+`
+
 const Service = () => {
+    const [open, setOpen] = React.useState(false);
+    const smallScreen = window.screen.width <= 480 ? true : false;
+
     return (
         <Container>
             <Left>
-                <Img src={how}></Img>
+                <Img open={open} src={how}/>
+                <Video open={open} autoPlay loop controls src='https://www.youtube.com/watch?v=d_HlPboLRL8'/>
             </Left>
             <Right>
             <Wrapper>
@@ -64,9 +121,17 @@ const Service = () => {
                 <MiniCart/>
                 <MiniCart/>
             </CardContainer>
-            <Button>How it Works</Button>
+            <Button onClick={()=>setOpen(true)}>
+                <Icon src={play}/> How it Works
+            </Button>
             </Wrapper>
             </Right>
+            {smallScreen && open && (
+                <Modal>
+                    <Video open={open} autoPlay loop controls src='https://www.youtube.com/watch?v=d_HlPboLRL8'/>
+                <CloseButton onClick={()=> setOpen(false)}>Close</CloseButton>
+                </Modal>
+            )}
         </Container>
     )
 }

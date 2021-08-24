@@ -1,7 +1,10 @@
 import styled,{css} from "styled-components";
+import Contacts from "./components/Contacts";
 import Feature from "./components/Feature";
+import Footer from "./components/Footer";
 import Intro from "./components/Intro";
 import Navbar from "./components/Navbar";
+import Price from "./components/Price";
 import Service from "./components/Service";
 
 const Container = styled.div`
@@ -33,8 +36,14 @@ const ServiseShape = styled.div`
     clip-path: polygon(0 0, 33% 0%, 33% 100%, 0% 100%);
     background: gray;
 `
+const PriceShape = styled.div`
+    ${Shape}
+    clip-path: polygon(0 0, 100% 0%, 33% 100%, 0% 100%);
+    background: crimson;
+`
 
 function App() {
+  const smallScreen = window.screen.width <= 480 ? true : false;
   return (
     <> 
     <Container >
@@ -47,8 +56,16 @@ function App() {
       <FeatureShape/>
     </Container>
     <Container>
-      <Service/>
-      <ServiseShape/>
+      <Service />
+      {!smallScreen && <ServiseShape/>}
+    </Container>
+    <Container>
+      <Price/>
+      <PriceShape/>
+    </Container>
+    <Container>
+      <Contacts/>
+      <Footer/>
     </Container>
     </>
   );

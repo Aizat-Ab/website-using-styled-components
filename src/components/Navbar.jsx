@@ -25,6 +25,10 @@ const Logo = styled.h1`
 const Menu = styled.ul`
     display: flex;
     list-style: none;
+    
+    @media only screen and (max-width:480px){
+        display: none;
+    }
 `
 const MenuItem = styled.li`
     margin-right: 30px;
@@ -35,7 +39,7 @@ const MenuItem = styled.li`
 const Button = styled.button`
     border: 2px solid white;
     padding: 10px 15px;
-    background: red;
+    background: transparent;
     font-weight: bold;
     border-radius: 10px;
     color: white;
